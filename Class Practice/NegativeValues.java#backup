@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+
+public class NegativeValues
+{
+    public static void main(String [] args)
+    {   
+        ArrayList<Integer> values = new ArrayList<Integer>(10);
+        int num = -5;
+        int end=5;
+        for(int j=0; j<11; j++)
+        {
+            if(num<end)
+            {
+                values.add(num);
+                num++;
+            }
+        }
+        
+        
+    }
+}
