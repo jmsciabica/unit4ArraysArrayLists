@@ -1,4 +1,3 @@
-
 /**
  * The model for radar scan and accumulator
  * 
@@ -11,8 +10,9 @@ public class Radar
     // stores whether each cell triggered detection for the current scan of the radar
     private boolean[][] currentScan;
     
+    final int MAX_V = 5;
     // value of each cell is incremented for each scan in which that cell triggers detection 
-    private int[][] accumulator;
+    private int[][] accumulator = new int[MAX_V*2+1][MAX_V*(-2)+(-1)];
     
     // location of the monster
     private int monsterLocationRow;
@@ -23,6 +23,8 @@ public class Radar
     
     // number of scans of the radar since construction
     private int numScans;
+    
+    
 
     /**
      * Constructor for objects of class Radar
@@ -80,6 +82,7 @@ public class Radar
         
         // keep track of the total number of scans
         numScans++;
+        
     }
 
     /**

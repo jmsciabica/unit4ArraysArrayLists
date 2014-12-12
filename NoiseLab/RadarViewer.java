@@ -15,8 +15,11 @@ public class RadarViewer
     public static void main(String[] args) throws InterruptedException
     {
         // create the radar, set the monster location, and perform the initial scan
+        final int DX = (int)(5*Math.random());
+        final int DY = (int)(5*Math.random());
         final int ROWS = 100;
         final int COLS = 100;
+        
         Radar radar = new Radar(ROWS, COLS);
         radar.setNoiseFraction(0.10);
         radar.scan();
