@@ -1,3 +1,5 @@
+
+
 /**
  * The model for radar scan and accumulator
  * 
@@ -9,10 +11,11 @@ public class Radar
     
     // stores whether each cell triggered detection for the current scan of the radar
     private boolean[][] currentScan;
+    private boolean[][] prevScan;
     
     final int MAX_V = 5;
     // value of each cell is incremented for each scan in which that cell triggers detection 
-    private int[][] accumulator = new int[MAX_V*2+1][MAX_V*(-2)+(-1)];
+    private int[][] accumulator;
     
     // location of the monster
     private int monsterLocationRow;
@@ -24,8 +27,6 @@ public class Radar
     // number of scans of the radar since construction
     private int numScans;
     
-    
-
     /**
      * Constructor for objects of class Radar
      * 
@@ -36,7 +37,8 @@ public class Radar
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
-        accumulator = new int[rows][cols]; // elements will be set to 0
+        prevScan = new boolean[rows][cols];
+        accumulator = new int[MAX_V*2+1][MAX_V*2+1];; // elements will be set to 0
         
         // randomly set the location of the monster (can be explicity set through the
         //  setMonsterLocation method
@@ -54,6 +56,14 @@ public class Radar
     public void scan()
     {
         // zero the current scan grid
+         for( int row = 0; row < currentScan.length; row++ )
+        {
+            for( int col = 0; col < currentScan[0].length; col++ )
+            {
+                prevScan[row][col] = currentScan[row][col];
+            }
+        }
+        
         for(int row = 0; row < currentScan.length; row++)
         {
             for(int col = 0; col < currentScan[0].length; col++)
@@ -65,6 +75,8 @@ public class Radar
         // detect the monster
         currentScan[monsterLocationRow][monsterLocationCol] = true;
         
+       
+        
         // inject noise into the grid
         injectNoise();
         
@@ -73,12 +85,19 @@ public class Radar
         {
             for(int col = 0; col < currentScan[0].length; col++)
             {
-                if(currentScan[row][col] == true)
-                {
-                   accumulator[row][col]++;
-                }
+                 for( int rows = 0; rows < currentScan.length; row++ )
+                 {
+                     for( int cols = 0; cols < currentScan[0].length; col++ )
+                     {
+                         if(currentScan[rows][cols] == true)
+                         {
+                            
+                         }   
+                     }
+                 }
             }
         }
+        
         
         // keep track of the total number of scans
         numScans++;
@@ -92,14 +111,14 @@ public class Radar
      * @param   col     the column in which the monster is located
      * @pre row and col must be within the bounds of the radar grid
      */
-    public void setMonsterLocation(int row, int col)
+    public void setMonsterLocation(int startX, int startY)
     {
         // remember the row and col of the monster's location
-        monsterLocationRow = row;
-        monsterLocationCol = col;
+        monsterLocationRow = startX;
+        monsterLocationCol = startY;
         
         // update the radar grid to show that something was detected at the specified location
-        currentScan[row][col] = true;
+        currentScan[startX][startY] = true;
     }
     
      /**

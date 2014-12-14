@@ -19,8 +19,22 @@ public class RadarViewer
         final int ROWS = 100;
         final int COLS = 100;
         
+        Scanner x = new Scanner(System.in);
+        Scanner y = new Scanner(System.in);
+        Scanner a = new Scanner(System.in);
+        Scanner b = new Scanner(System.in);
+    
+        System.out.print("Enter the x of the slope: ");
+        int dx = x.nextInt();
+        System.out.print("Enter a y of the slope: ");
+        int dy = y.nextInt();
+        System.out.print("Enter the x for starting position: ");
+        int startX = a.nextInt();
+        System.out.print("Enter a y for starting position: ");
+        int startY = b.nextInt();
+        
         Radar radar = new Radar(ROWS, COLS);
-        radar.setNoiseFraction(0.10);
+        radar.setNoiseFraction(0.0);
         radar.scan();
         
         JFrame frame = new JFrame();
