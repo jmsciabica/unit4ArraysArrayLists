@@ -19,21 +19,18 @@ public class RadarViewer
         final int ROWS = 100;
         final int COLS = 100;
         
-        Scanner x = new Scanner(System.in);
-        Scanner y = new Scanner(System.in);
-        Scanner a = new Scanner(System.in);
-        Scanner b = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
     
         System.out.print("Enter the x of the slope: ");
-        int dx = x.nextInt();
+        int dx = s.nextInt();
         System.out.print("Enter a y of the slope: ");
-        int dy = y.nextInt();
+        int dy = s.nextInt();
         System.out.print("Enter the x for starting position: ");
-        int startX = a.nextInt();
+        int startX = s.nextInt();
         System.out.print("Enter a y for starting position: ");
-        int startY = b.nextInt();
+        int startY = s.nextInt();
         
-        Radar radar = new Radar(ROWS, COLS);
+        Radar radar = new Radar(ROWS, COLS, dx, dy, startX, startY);
         radar.setNoiseFraction(0.0);
         radar.scan();
         
@@ -57,7 +54,7 @@ public class RadarViewer
         // after each scan, instruct the Java Run-Time to redraw the window
         for(int i = 0; i < 100; i++)
         {
-            Thread.sleep(100); // sleep 100 milliseconds (1/10 second)
+            Thread.sleep(20); // sleep 20 milliseconds (1/10 second)
             
             radar.scan();
             

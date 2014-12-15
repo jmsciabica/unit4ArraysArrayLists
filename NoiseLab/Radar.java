@@ -14,12 +14,16 @@ public class Radar
     private boolean[][] prevScan;
     
     final int MAX_V = 5;
+    
     // value of each cell is incremented for each scan in which that cell triggers detection 
     private int[][] accumulator;
     
     // location of the monster
     private int monsterLocationRow;
     private int monsterLocationCol;
+    
+    private int monsterDx;
+    private int monsterDy;
 
     // probability that a cell will trigger a false detection (must be >= 0 and < 1)
     private double noiseFraction;
@@ -33,17 +37,19 @@ public class Radar
      * @param   rows    the number of rows in the radar grid
      * @param   cols    the number of columns in the radar grid
      */
-    public Radar(int rows, int cols)
+    public Radar(int rows, int cols, int dx, int dy, int startX, int startY)
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
         prevScan = new boolean[rows][cols];
-        accumulator = new int[MAX_V*2+1][MAX_V*2+1];; // elements will be set to 0
+        accumulator = new int[MAX_V*2+1][MAX_V*2+1];
         
         // randomly set the location of the monster (can be explicity set through the
         //  setMonsterLocation method
-        monsterLocationRow = (int)(Math.random() * rows);
-        monsterLocationCol = (int)(Math.random() * cols);
+        monsterLocationRow = startX;
+        monsterLocationCol = startY;
+        monsterDx = dx;
+        monsterDy = dy;
         
         noiseFraction = 0.05;
         numScans= 0;
@@ -85,13 +91,13 @@ public class Radar
         {
             for(int col = 0; col < currentScan[0].length; col++)
             {
-                 for( int rows = 0; rows < currentScan.length; row++ )
+                 for( int rows = 0; rows < currentScan.length; rows++ )
                  {
-                     for( int cols = 0; cols < currentScan[0].length; col++ )
+                     for( int cols = 0; cols < currentScan[0].length; cols++ )
                      {
                          if(currentScan[rows][cols] == true)
                          {
-                            
+                            currentScan[rows][cols] = currentScan[monsterDx][monsterDy]; 
                          }   
                      }
                  }
@@ -111,14 +117,14 @@ public class Radar
      * @param   col     the column in which the monster is located
      * @pre row and col must be within the bounds of the radar grid
      */
-    public void setMonsterLocation(int startX, int startY)
+    public void setMonsterLocation(int row, int col)
     {
         // remember the row and col of the monster's location
-        monsterLocationRow = startX;
-        monsterLocationCol = startY;
+        monsterLocationRow = row;
+        monsterLocationCol = col;
         
         // update the radar grid to show that something was detected at the specified location
-        currentScan[startX][startY] = true;
+        currentScan[row][col] = true;
     }
     
      /**
