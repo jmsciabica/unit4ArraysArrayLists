@@ -91,7 +91,8 @@ public class Radar
         {
             for(int col = 0; col < currentScan[0].length; col++)
             {
-                 for( int rows = 0; rows < currentScan.length; rows++ )
+                if {}
+                for( int rows = 0; rows < currentScan.length; rows++ )
                  {
                      for( int cols = 0; cols < currentScan[0].length; cols++ )
                      {
