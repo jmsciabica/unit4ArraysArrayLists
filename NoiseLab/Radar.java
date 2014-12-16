@@ -1,9 +1,7 @@
-
-
 /**
  * The model for radar scan and accumulator
  * 
- * @author @gcschmit
+ * @author @Jessie Sciabica
  * @version 19 July 2014
  */
 public class Radar
@@ -61,7 +59,7 @@ public class Radar
      */
     public void scan()
     {
-        // zero the current scan grid
+        
          for( int row = 0; row < currentScan.length; row++ )
         {
             for( int col = 0; col < currentScan[0].length; col++ )
@@ -86,28 +84,25 @@ public class Radar
         // inject noise into the grid
         injectNoise();
         
-        // udpate the accumulator
         for(int row = 0; row < currentScan.length; row++)
         {
-            for(int col = 0; col < currentScan[0].length; col++)
+            for (int col = 0; col < currentScan[0].length; col++)
             {
-                if {}
-                for( int rows = 0; rows < currentScan.length; rows++ )
-                 {
-                     for( int cols = 0; cols < currentScan[0].length; cols++ )
-                     {
-                         if(currentScan[rows][cols] == true)
-                         {
-                            currentScan[rows][cols] = currentScan[monsterDx][monsterDy]; 
-                         }   
-                     }
-                 }
+                if (currentScan[row][col] == true)
+                {
+                    accumulator[row][col]++;
+                }
             }
         }
         
         
         // keep track of the total number of scans
         numScans++;
+        
+    }
+    
+    public void updateAccumulator()
+    {
         
     }
 
@@ -212,6 +207,12 @@ public class Radar
                 }
             }
         }
+    }
+    
+    public int getMonsterVelocity()
+    {
+       //Just so it would compile I put a 3
+        return 3; 
     }
     
 }
