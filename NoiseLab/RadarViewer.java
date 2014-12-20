@@ -33,6 +33,7 @@ public class RadarViewer
         Radar radar = new Radar(ROWS, COLS, dx, dy, startX, startY);
         radar.setNoiseFraction(0.0);
         radar.scan();
+        radar.updateAccumulator();
         
         JFrame frame = new JFrame();
         
@@ -52,7 +53,7 @@ public class RadarViewer
         
         // perform 100 scans of the radar wiht a slight pause between each
         // after each scan, instruct the Java Run-Time to redraw the window
-        for(int i = 0; i < 100; i++)
+        for(int i = 0; i < 40; i++)
         {
             Thread.sleep(20); // sleep 20 milliseconds (1/10 second)
             

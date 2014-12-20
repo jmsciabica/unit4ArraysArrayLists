@@ -84,17 +84,6 @@ public class Radar
         // inject noise into the grid
         injectNoise();
         
-        for(int row = 0; row < currentScan.length; row++)
-        {
-            for (int col = 0; col < currentScan[0].length; col++)
-            {
-                if (currentScan[row][col] == true)
-                {
-                    accumulator[row][col]++;
-                }
-            }
-        }
-        
         
         // keep track of the total number of scans
         numScans++;
@@ -103,6 +92,21 @@ public class Radar
     
     public void updateAccumulator()
     {
+        for(int row = 0; row < currentScan.length; row++)
+        {
+            if (currentScan[row][row] == true)
+            {
+                for (int col = 0; col < currentScan[0].length; col++)
+                {  
+                    if (currentScan[row][col] == true)
+                    {
+                        accumulator[row][col]++;
+                        double dif = (monsterDx - monsterDy);
+                        
+                    }
+                }
+            }
+        }
         
     }
 
@@ -209,10 +213,18 @@ public class Radar
         }
     }
     
-    public int getMonsterVelocity()
+    public int [] getMonsterVelocity()
     {
-       //Just so it would compile I put a 3
-        return 3; 
+      int [] velocity = {0};
+      for(int row = 0; row < currentScan.length; row++)
+        {
+            for (int col = 0; col < currentScan[0].length; col++)
+            {
+                velocity 
+            }
+        }
+      return velocity;
+       
     }
     
 }
