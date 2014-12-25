@@ -28,6 +28,8 @@ public class Radar
     
     // number of scans of the radar since construction
     private int numScans;
+    private int ROWS;
+    private int COLS;
     
     /**
      * Constructor for objects of class Radar
@@ -38,9 +40,11 @@ public class Radar
     public Radar(int rows, int cols, int dx, int dy, int startX, int startY)
     {
         // initialize instance variables
+        ROWS = rows; 
+        COLS = cols;
         currentScan = new boolean[rows][cols]; // elements will be set to false
         prevScan = new boolean[rows][cols];
-        accumulator = new int[MAX_V*2+1][MAX_V*2+1];
+        accumulator = new int[rows][cols];
         
         // randomly set the location of the monster (can be explicity set through the
         //  setMonsterLocation method
@@ -64,7 +68,7 @@ public class Radar
         {
             for( int col = 0; col < currentScan[0].length; col++ )
             {
-                prevScan[row][col] = currentScan[row][col];
+                accumulator[row][col]++;
             }
         }
         
@@ -79,8 +83,6 @@ public class Radar
         // detect the monster
         currentScan[monsterLocationRow][monsterLocationCol] = true;
         
-       
-        
         // inject noise into the grid
         injectNoise();
         
@@ -90,24 +92,45 @@ public class Radar
         
     }
     
+    public void previousScan()
+    {
+         for(int row = 0; row < currentScan.length; row++)
+        {       
+            for(int col = 0; col < currentScan[0].length; col++)
+            {
+                prevScan[row][col] = currentScan[row][col];
+            }
+        }
+    }
+    
     public void updateAccumulator()
     {
-        for(int row = 0; row < currentScan.length; row++)
-        {
-            if (currentScan[row][row] == true)
+        /**Here to a double for loop that will use the previous row. Then use an if statement to check whether
+           or not it exists with in the previousScan array. Then if it does use another for loop for the 
+           current scan. if it is present in the currentScan array then see if the velocity is between -5 and 5
+           (I would use hte .abs method) then store that value somewhere (like a list of doubles called velocities)*/
+         for(int row = 0; row < currentScan.length; row++)
+        {       
+            for(int col = 0; col < currentScan[0].length; col++)
             {
-                for (int col = 0; col < currentScan[0].length; col++)
-                {  
-                    if (currentScan[row][col] == true)
-                    {
-                        accumulator[row][col]++;
-                        double dif = (monsterDx - monsterDy);
-                        
-                    }
+                if ( prevScan[row][col] == true)
+                {
+                     for(int rows = 0; row < currentScan.length; row++)
+                     {       
+                         for(int cols = 0; col < currentScan[0].length; col++)
+                         {
+                             if (prevScan[rows][col] = true)
+                             {
+                                 if ((monsterDx) <= (MAX_V) && monsterDy <= (MAX_V))
+                                 {
+                                     accumulator[row][col]++;
+                                 }
+                             }
+                         }
+                     } 
                 }
             }
         }
-        
     }
 
     /**
@@ -216,14 +239,19 @@ public class Radar
     public int [] getMonsterVelocity()
     {
       int [] velocity = new int[2];
-      int dif = (monsterDx + monsterDy);
-      for(int row = 0 ; row < accumulator.length; row++)
+      int [] values = new int[1];
+      int maxVal = 0;
+      for(int  i = 0 ; i < accumulator.length; i++)
         {
-            //if
-            
+            if( accumulator[i][i] > MAX_V )
+            {
+               maxVal = accumulator[i][i];
+               velocity[0]++;
+               velocity[1]++;
+            }
         }
+        
       return velocity;
-       
     }
     
 }

@@ -31,7 +31,7 @@ public class RadarViewer
         int startY = s.nextInt();
         
         Radar radar = new Radar(ROWS, COLS, dx, dy, startX, startY);
-        radar.setNoiseFraction(0.0);
+        radar.setNoiseFraction(0.1);
         radar.scan();
         radar.updateAccumulator();
         
@@ -61,7 +61,8 @@ public class RadarViewer
             
             frame.repaint();
         }
-        radar.getMonsterVelocity();
+        
+        System.out.print("Velocity: " + radar.getMonsterVelocity());
     }
 
 }

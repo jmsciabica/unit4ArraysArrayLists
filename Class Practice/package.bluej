@@ -1,9 +1,9 @@
 #BlueJ package file
 objectbench.height=100
 objectbench.width=737
-package.editor.height=471
+package.editor.height=473
 package.editor.width=944
-package.editor.x=13
+package.editor.x=22
 package.editor.y=20
 package.numDependencies=0
 package.numTargets=6
@@ -51,8 +51,8 @@ target3.x=180
 target3.y=10
 target4.editor.height=700
 target4.editor.width=900
-target4.editor.x=728
-target4.editor.y=106
+target4.editor.x=583
+target4.editor.y=94
 target4.height=50
 target4.name=ArrayOperations
 target4.naviview.expanded=false
